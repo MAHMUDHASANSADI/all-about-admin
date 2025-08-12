@@ -19,10 +19,10 @@
                 <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                 <li><hr class="dropdown-divider" /></li>
                 <li>
-                    <form method="POST" action="{{ route('logout') }}">
+                    <form method="POST" action="{{ route('admin.logout') }}">
                         @csrf
 
-                        <a :href="{{route('logout')}}"
+                        <a :href="{{route('admin.login')}}"
                                                onclick="event.preventDefault();
                                         this.closest('form').submit();">
                             {{ __('Log Out') }}
