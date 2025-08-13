@@ -22,9 +22,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/permission/index', [PermissionController::class, 'index'])->name('permission.index');
     Route::get('/permission/create', [PermissionController::class, 'create'])->name('permission.create');
-    Route::get('/permission/edit', [PermissionController::class, 'edit'])->name('permission.edit');
-    Route::get('/permission/delete', [PermissionController::class, 'create'])->name('permission.destroy');
+    Route::get('/permission/{id}/edit', [PermissionController::class, 'edit'])->name('permission.edit');
+    Route::delete('/permission/{id}', [PermissionController::class, 'destroy'])->name('permission.destroy');
     Route::post('/permission', [PermissionController::class, 'store'])->name('permission.store');
+    Route::post('/permission/{id}', [PermissionController::class, 'update'])->name('permission.update');
 });
 
 Route::prefix('admin')->middleware('auth:admin')->group(function () {
