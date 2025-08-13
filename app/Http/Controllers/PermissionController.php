@@ -56,7 +56,6 @@ class PermissionController extends Controller
                 ->withInput()
                 ->withErrors($validator);
         }
-
         $permission->update([
             'name' => $request->name
         ]);
@@ -70,7 +69,6 @@ class PermissionController extends Controller
     {
         $permission = Permission::findOrFail($id);
         $permission->delete();
-
         return redirect()
             ->route('permission.index')
             ->with('success', 'Permission deleted successfully');
