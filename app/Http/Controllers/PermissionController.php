@@ -73,5 +73,4 @@ class PermissionController extends Controller
             ->route('permission.index')
             ->with('success', 'Permission deleted successfully');
     }
-
 }

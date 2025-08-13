@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
@@ -35,6 +36,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/role/{id}', [RoleController::class, 'destroy'])->name('role.destroy');
     Route::post('/role', [RoleController::class, 'store'])->name('role.store');
     Route::post('/role/{id}', [RoleController::class, 'update'])->name('role.update');
+    //article route
+    Route::get('/article/index', [ArticleController::class, 'index'])->name('article.index');
+    Route::get('/article/create', [ArticleController::class, 'create'])->name('article.create');
+    Route::get('/article/{id}/edit', [ArticleController::class, 'edit'])->name('article.edit');
+    Route::delete('/article/{id}', [ArticleController::class, 'destroy'])->name('article.destroy');
+    Route::post('/article', [ArticleController::class, 'store'])->name('article.store');
+    Route::post('/article/{id}', [ArticleController::class, 'update'])->name('article.update');
+
 
 });
 
