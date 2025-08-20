@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ArticleController extends Controller
 {
@@ -29,7 +30,21 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        return view('articles.store');
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|min:5',
+            'author' => 'required|min:5',
+        ]);
+        if ($validator->passes()){
+            $article = new Article();
+            $article->title = $request->title;
+            $article->text = $request->text;
+            $article->author = $request->author;
+            $article->save();
+            return redirect()->route('article.index')->with('success', 'Article created successfully.');
+        }
+        else{
+            return redirect()->route('article.create')->withErrors($validator)->withInput();
+        }
     }
 
     /**
@@ -59,8 +74,12 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        return view('articles.destroy');
+        $article = Article::findOrFail($id);
+        $article->delete();
+        return redirect()
+            ->route('article.index')
+            ->with('success', 'Permission deleted successfully');
     }
 }

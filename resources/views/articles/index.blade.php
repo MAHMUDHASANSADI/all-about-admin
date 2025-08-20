@@ -21,7 +21,9 @@
                         <thead class="bg-gray-100 dark:bg-gray-700">
                         <tr>
                             <th class="px-4 py-2 border">SL</th>
-                            <th class="px-4 py-2 border">Name</th>
+                            <th class="px-4 py-2 border">Title</th>
+                            <th class="px-4 py-2 border">Content</th>
+                            <th class="px-4 py-2 border">Author</th>
                             <th class="px-4 py-2 border">Created at</th>
                             <th class="px-4 py-2 border">Action</th>
                         </tr>
@@ -30,7 +32,9 @@
                         @foreach($articles as $index => $article)
                             <tr>
                                 <td class="text-center px-4 py-2 border">{{ $index + 1 }}</td>
-                                <td class="text-center px-4 py-2 border">{{ $article->name }}</td>
+                                <td class="text-center px-4 py-2 border">{{ $article->title }}</td>
+                                <td class="text-center px-4 py-2 border">{{ $article->text }}</td>
+                                <td class="text-center px-4 py-2 border">{{ $article->author }}</td>
                                 <td class="text-center px-4 py-2 border">{{\Carbon\Carbon::parse($article->created_at)->format('d M, Y')}}</td>
                                 <td class="text-center px-4 py-2 border space-x-2">
                                     <a href="{{ route('article.edit', $article->id) }}"
