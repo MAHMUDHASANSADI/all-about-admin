@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Permission;
 
 class ArticleController extends Controller
 {
@@ -58,17 +59,36 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        return view('articles.edit');
+        $article = Article::findOrFail($id);
+        return view('articles.edit',compact('article'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        return view('articles.update');
+        $article = Article::findOrFail($id);
+
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|max:255' . $id,
+            'author' => 'required|min:5'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('article.edit', $id)
+                ->withInput()
+                ->withErrors($validator);
+        }
+        $article->update([
+            'title' => $request->title,
+            'text' => $request->text,
+            'author' => $request->author
+        ]);
+        return redirect()->route('article.index')
+            ->with('success', 'Article updated successfully.');
     }
 
     /**
